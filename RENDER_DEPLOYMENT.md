@@ -11,7 +11,8 @@
 **Backend Service:**
 ```
 NODE_ENV=production
-DATABASE_URL=[Auto-generated from database]
+DATABASE_URL=postgresql://postgres.ujtqekcnngoikrzkhsmc:[YOUR-PASSWORD]@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+DIRECT_URL=postgresql://postgres.ujtqekcnngoikrzkhsmc:[YOUR-PASSWORD]@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres
 JWT_SECRET=[Auto-generated]
 FRONTEND_URL=https://bloodbridge-frontend.onrender.com
 PORT=10000
@@ -45,6 +46,6 @@ The `render.yaml` file will automatically:
 ### Services Created:
 - **bloodbridge-backend**: Node.js API server
 - **bloodbridge-frontend**: Static React app
-- **bloodbridge-db**: MySQL database
+- **Database**: Supabase PostgreSQL (external)
 
-Both services will be deployed on Render's free tier.
+Both services will be deployed on Render's free tier with Supabase database.

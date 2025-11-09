@@ -10,9 +10,9 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        fromDatabase:
-          name: bloodbridge-db
-          property: connectionString
+        value: postgresql://postgres.ujtqekcnngoikrzkhsmc:Sht%40321%28l%29km@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+      - key: DIRECT_URL
+        value: postgresql://postgres.ujtqekcnngoikrzkhsmc:Sht%40321%28l%29km@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
@@ -30,9 +30,3 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://bloodbridge-backend.onrender.com
-
-databases:
-  - name: bloodbridge-db
-    databaseName: bloodbridge
-    user: bloodbridge_user
-    plan: free
