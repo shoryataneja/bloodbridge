@@ -19,6 +19,17 @@ model User {
   
   requests      Request[]
   donationQueue DonationQueue[]
+  galleryPosts  GalleryPost[]
+}
+
+model GalleryPost {
+  id        String   @id @default(cuid())
+  userId    String
+  imageUrl  String
+  message   String?
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Request {
@@ -28,6 +39,7 @@ model Request {
   unitsNeeded Int
   location    String
   message     String?
+  urgency     String   @default("needed")
   status      String   @default("active")
   createdAt   DateTime @default(now())
   

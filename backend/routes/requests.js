@@ -8,15 +8,16 @@ const prisma = new PrismaClient();
 
 router.post('/create', auth, async (req, res, next) => {
   try {
-    const { bloodGroup, unitsNeeded, location, message } = req.body;
+    const { bloodGroup, unitsNeeded, location, message, urgency } = req.body;
     
     const request = await prisma.request.create({
       data: {
         requesterId: req.user.id,
         bloodGroup,
-        unitsNeeded,
+        unitsNeeded: parseInt(unitsNeeded),
         location,
-        message
+        message,
+        urgency: urgency || 'needed'
       },
       include: {
         requester: {
@@ -42,12 +43,15 @@ router.get('/', async (req, res, next) => {
         donationQueue: {
           include: {
             donor: {
-              select: { name: true, bloodGroup: true }
+              select: { name: true, bloodGroup: true, city: true, email: true }
             }
           }
         }
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: [
+        { urgency: 'desc' },
+        { createdAt: 'desc' }
+      ]
     });
     
     res.json(requests);
@@ -67,7 +71,7 @@ router.get('/:id', async (req, res, next) => {
         donationQueue: {
           include: {
             donor: {
-              select: { name: true, bloodGroup: true, city: true }
+              select: { name: true, bloodGroup: true, city: true, email: true }
             }
           }
         }

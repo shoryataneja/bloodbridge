@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const navLinks = [
     { to: '/', label: 'Home' },
-    { to: '/requests', label: 'Find Blood' },
+    { to: '/requests', label: 'Donate Blood' },
     { to: '/create-request', label: 'Request Blood' },
     { to: '/gallery', label: 'Gallery' },
     { to: '/about', label: 'About Us' },
@@ -29,7 +29,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2">
             <Heart className="text-primary" size={32} fill="currentColor" />
-            <span className="heading-md text-primary">BloodBridge</span>
+            <span className="text-2xl font-bold text-primary">BloodBridge</span>
           </Link>
           
           {/* Desktop Navigation */}
@@ -55,17 +55,23 @@ const Navbar = () => {
                 <span className="text-sm text-gray-600">Hi, {user.name}</span>
                 <button
                   onClick={handleLogout}
-                  className="btn btn-primary btn-sm"
+                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-300 font-medium"
                 >
                   Logout
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-3">
-                <Link to="/login" className="btn btn-ghost btn-sm">
+              <div className="flex items-center gap-4">
+                <Link 
+                  to="/login" 
+                  className="text-gray-700 hover:text-primary transition-colors duration-300 px-4 py-2 rounded-lg font-medium"
+                >
                   Login
                 </Link>
-                <Link to="/signup" className="btn btn-primary btn-sm">
+                <Link 
+                  to="/signup" 
+                  className="bg-primary text-white px-6 py-3 rounded-xl hover:bg-red-600 transition-all duration-300 font-semibold shadow-lg transform hover:scale-105"
+                >
                   Sign Up
                 </Link>
               </div>
@@ -83,7 +89,7 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 fade-in">
+          <div className="md:hidden pb-4 fade-in border-t border-gray-200 mt-4 pt-4">
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
@@ -107,7 +113,7 @@ const Navbar = () => {
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="btn btn-primary btn-sm w-full mt-2"
+                    className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors duration-300 font-medium w-full mt-2"
                   >
                     Logout
                   </button>
@@ -116,14 +122,14 @@ const Navbar = () => {
                 <div className="flex flex-col gap-2 mt-2">
                   <Link
                     to="/login"
-                    className="btn btn-ghost btn-sm"
+                    className="text-gray-700 hover:text-primary transition-colors duration-300 px-4 py-2 rounded-lg font-medium"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Login
                   </Link>
                   <Link
                     to="/signup"
-                    className="btn btn-primary btn-sm"
+                    className="bg-primary text-white px-6 py-3 rounded-xl hover:bg-red-600 transition-all duration-300 font-semibold shadow-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Sign Up

@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
+import GuestRoute from './components/GuestRoute';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -13,18 +15,21 @@ import RequestDetail from './pages/RequestDetail';
 import Gallery from './pages/Gallery';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Profile from './pages/Profile';
+import History from './pages/History';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen flex flex-col bg-base-100">
-          <Navbar />
-          <main className="flex-grow">
-            <Routes>
+    <ErrorBoundary>
+      <AuthProvider>
+        <Router>
+          <div className="min-h-screen flex flex-col bg-white">
+            <Navbar />
+            <main className="flex-grow">
+              <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/login" element={<GuestRoute><LoginPage /></GuestRoute>} />
+              <Route path="/signup" element={<GuestRoute><SignupPage /></GuestRoute>} />
               <Route path="/requests" element={<RequestsList />} />
               <Route path="/requests/:id" element={<RequestDetail />} />
               <Route path="/gallery" element={<Gallery />} />
@@ -46,13 +51,30 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/users/:id/history"
+                element={
+                  <ProtectedRoute>
+                    <History />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="*" element={<HomePage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </AuthProvider>
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
